@@ -16,70 +16,59 @@ namespace PryRepasoVectoresDiazB
         {
             InitializeComponent();
         }
-        String[] Usuarios = new String[10];
-        Int32 INDICE = 0;
-        private int i;
+        String[] Meses = new String[12] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+        Decimal[] Importes = new decimal[12];
+       
 
         private void FrmVectores_Load(object sender, EventArgs e)
         {
-
+            for (Int32 i = 0; i < Meses.Length; i++) 
+            {   
+                //agregar algo a combobox
+                cmbMes.Items.Add(Meses[i]);
+                cmbMes.SelectedIndex = 0;
+            }
         }
-
-
 
         private void btnCargar_Click_1(object sender, EventArgs e)
         {
-            if (INDICE < 10)
+            Int32 i = cmbMes.SelectedIndex;
+            Decimal importe = Convert.ToDecimal(txtImporte.Text);
+            Importes[i] = Importes[i] + importe;
+            Listar(); 
+            //MessageBox.Show("El importe se cargo correctamente");
 
-            {
-                Usuarios[INDICE] = txtNyA.Text;
-                INDICE++;
-                MessageBox.Show("El dato se cargo correctamente");
-                txtNyA.Text = "";
-                Listar();
-            }
-            else
-            {
-                MessageBox.Show("No se puede cargar mas datos");
-            }
+            
         }
 
         private void btnListarConFor_Click(object sender, EventArgs e)
-        {
-            lstPersonas.Items.Clear();
-            for (Int32 i = 0; i < INDICE; i++) ;
-            {
-                lstPersonas.Items.Add(Usuarios[i]);
-            }
+        {       
+                dgvListado.Rows.Clear();   
+                for(Int32 i = 0;i < Meses.Length;i++)
+                {
+                    dgvListado.Rows.Add(Meses[i], Importes[i]);                
+                }
+
 
         }
 
         private void btnListarconWhile_Click(object sender, EventArgs e)
         {
-            lstPersonas.Items.Clear();
-            Int32 i = 0;
-
-            while (i < INDICE)
-
-
-            {
-                lstPersonas.Items.Add(Usuarios[i]);
-                i++;
-            }
+            Listar();
+           
         }
 
         private void Listar()
         {
-
-
-            lstPersonas.Items.Clear();
-            for (Int32 i = 0;i < INDICE;i++)
+            Int32 i = 0;
+            dgvListado.Rows.Clear();
+            while (i < Meses.Length)
             {
-                lstPersonas.Items.Add(Usuarios[i]);
-            }
 
-            
-            
+                int v = dgvListado.Rows.Add(Meses[i], Importes[i]);
+                i++;
+
+            }
 
         }
     }
